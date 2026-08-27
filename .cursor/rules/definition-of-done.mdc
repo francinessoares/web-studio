@@ -1,0 +1,38 @@
+---
+description: Definition of Done — lint, test, build e checklist de QA; compilar não é concluir
+alwaysApply: true
+---
+
+# Definition of Done
+
+Código escrito ≠ tarefa concluída. Este repo **não** tem `pnpm verify`.
+
+## Obrigatório após código
+
+```bash
+npm run lint
+npm test
+npm run build
+```
+
+Exit code 0 em todos. Se falhar: não declarar concluída; corrigir a causa; rodar de novo.
+
+## Checklist QA (skill `qa-performance`)
+
+- Mobile / tablet / desktop
+- Links, formulários, validação, erro, loading
+- SEO: metadata, OG, sitemap, robots
+- A11y: semântica, contraste, teclado, aria
+- Imagens e fontes (CWV)
+- Copy PT-BR visível
+
+## Proibido para “passar o gate”
+
+- `eslint-disable` sem justificativa
+- `any` para esconder tipo
+- Pular ou apagar teste
+- Afirmar pronto só porque o TypeScript compilou
+
+Erros preexistentes: nomear, separar dos introduzidos, corrigir se for seguro.
+
+Só usar **concluída** com lint + test + build verdes.

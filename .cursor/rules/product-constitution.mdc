@@ -1,0 +1,39 @@
+---
+description: Constituição do produto — identidade, funil, anti-padrões, conversão primeiro
+alwaysApply: true
+---
+
+# Product Constitution (suprema)
+
+Canônico: `docs/PRODUCT.md`. Knowledge: `.cursor/knowledge/product.md` · `funnel.md`.
+
+Site comercial de **parceria** de crescimento digital (marketing, tráfego, sites, gestão, automação) para profissionais e empresas.
+
+## Conversão primeiro
+
+Funil: tráfego pago → LP → lead → WhatsApp → conversa → proposta.
+
+A página responde: o quê / para quem / como ajuda / como contratar.
+
+## Identidade
+
+Editorial + premium + digital (Manrope, lime `#CFFF00` em 5%). Empresa **nova**: profissional sem prova social falsa. DS: `docs/DESIGN_SYSTEM.md`.
+
+## Não parecer
+
+- Portfólio pessoal de desenvolvedor
+- Agência de marketing genérica
+- Template SaaS (cards, glass, gradientes demais)
+- Empresa antiga com clientes inventados
+
+## Serviços
+
+Marketing digital · redes · tráfego pago · sites · landing pages · automação e IA. Sem preço inventado no site.
+
+## Página
+
+Hero → Problema → Solução → Serviços → Como funciona → Primeiros projetos → Por que nós → Sobre → Planos → FAQ → Formulário → CTA final
+
+UI 100% PT-BR. px only. Mobile first. SEO desde o dia um.
+
+Gate: leigo entende? honesta? converte? copy em português? Se não → revisar.

@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": "node .cursor/hooks/orchestrator-session.mjs",
+        "timeout": 5
+      }
+    ],
+    "subagentStart": [
+      {
+        "type": "prompt",
+        "prompt": "Subagent do Web Studio (site comercial de parceria). OBRIGATORIO: constituição docs/PRODUCT.md + stack lock (.cursor/rules/stack.mdc). UI em Portugues (Brasil). Funil: trafego pago → LP → lead → WhatsApp → orçamento → venda. Nao parecer portfólio pessoal nem agencia generica. Seguir handoff do Orchestrator. Avalie se o tipo de subagent e adequado. Input: $ARGUMENTS",
+        "timeout": 8
+      }
+    ]
+  }
+}

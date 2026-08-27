@@ -1,0 +1,21 @@
+---
+description: Estilo de código — TypeScript strict, RSC, px, UI PT-BR, reuso, sem overengineering
+alwaysApply: true
+---
+
+# Coding style
+
+- **TypeScript strict** — tipos explícitos em boundaries públicas; sem `any` sem justificativa
+- **RSC default** — `"use client"` só com estado, evento ou motion no componente
+- Sem `useEffect` desnecessário; componentes pequenos
+- **Imports** `@/` (ex.: `@/components/layout/site-header`)
+- **UI 100% PT-BR** — inglês só em código (ids, arquivos, APIs)
+- **px only** — sem `rem` em spacing/tipografia
+- **Reuso** — `src/sections`, `src/components`, `src/data`, `src/lib` antes de criar arquivo
+- **Não** mass-renomear para `features/` agora
+- Early return; nomes em inglês no código; copy em português
+- Sem abstração de uma linha; sem lib extra; diff focado
+
+```tsx
+if (!phone) return null;
+```

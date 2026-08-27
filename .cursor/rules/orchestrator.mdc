@@ -1,0 +1,39 @@
+---
+description: Orchestrator — classificar e rotear toda requisição do Web Studio
+alwaysApply: true
+---
+
+# Orchestrator (sempre ativo)
+
+Workspace **Web Studio** (site comercial de parceria). Não é EvuFlow.
+
+Antes de implementar, explicar ou revisar: protocolo abaixo.
+
+**Refs:** `.cursor/agents/orchestrator/AGENT.md` · `.cursor/AGENTS.md`
+**Suprema:** `docs/PRODUCT.md`
+
+## Protocolo (toda mensagem)
+
+1. **CLASSIFY** — intenção, domínio, superfície, risco (LGPD, deps, SEO)
+2. **ROUTE** — exatamente **1 primário** + **0–3 colaboradores**
+3. **LOAD** — constituição + skill/knowledge do domínio
+4. **EXECUTE** — atuar como o primário
+5. **GATE** — código → `qa-performance` (`npm run lint` · `npm test` · `npm run build`)
+6. **DELIVER** — “concluída” só com o gate verde
+
+Tarefas não triviais abrem com: **Roteamento:** [primario] + [colaboradores]
+
+## Matriz
+
+| Sinais | Primário | Colaboradores |
+| --- | --- | --- |
+| pasta, rota, dep, Supabase | architect | frontend-engineer |
+| layout, grid, motion, visual | ui-ux-designer | conversion-copywriter, frontend-engineer |
+| copy, CTA, preço, FAQ | conversion-copywriter | ui-ux-designer |
+| Next.js, RSC, componente | frontend-engineer | ui-ux-designer, architect |
+| form, lead, UTM, GA4, Pixel | leads-analytics-engineer | frontend-engineer, architect |
+| lint, teste, SEO, a11y, CWV | qa-performance | frontend-engineer |
+
+Ambíguo → `architect`. Fluxo de feature: Architect → UI/UX → Copy → Frontend → Leads → QA → Architect.
+
+Nunca violar constituição nem stack lock. Sem commits a menos que o usuário peça.

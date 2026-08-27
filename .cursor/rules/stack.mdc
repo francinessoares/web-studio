@@ -1,0 +1,27 @@
+---
+description: Stack lock — tecnologias permitidas e proibidas; perguntar antes de adicionar deps
+alwaysApply: true
+---
+
+# Stack lock
+
+Conferir `package.json` antes de qualquer install. Perguntar ao usuário + Architect se a lib não estiver na lista permitida.
+
+## Permitido
+
+- Next.js (App Router), React, TypeScript
+- Tailwind CSS, shadcn quando ajudar, Lucide, Framer Motion
+- Backend: **somente** API routes do Next.js
+- DB: Supabase + PostgreSQL (quando a feature de leads existir)
+- Analytics: GA4, GTM, Meta Pixel
+- Deploy: Vercel
+
+Formulários: React Hook Form + Zod (instalados). `@supabase/supabase-js` só quando a tabela `leads` existir.
+
+Resend já está no projeto; não adicionar outro provedor de e-mail sem necessidade.
+
+## Proibido
+
+NestJS, backend separado, Docker, Redux, microfrontends, Turborepo, CMS complexo, autenticação de visitante, deps desnecessárias.
+
+Não mudar a stack “por higiene”. Não copiar stack da Evolua (Prisma app, monorepo, mobile, Nest).
