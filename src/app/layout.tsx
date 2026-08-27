@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { Manrope } from "next/font/google";
 
-import { SiteChrome } from "@/components/layout/site-chrome";
 import { siteTitle, siteUrl } from "@/config/site";
 import { rootMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
@@ -9,28 +8,33 @@ import { cn } from "@/lib/utils";
 import "./globals.css";
 
 const defaultDescription =
-  "Web Studio, estúdio de Francine Soares para criação de sites profissionais em Florianópolis.";
+  "Marketing, tráfego pago, gestão e sites para profissionais e empresas crescerem no digital — do posicionamento à conversão.";
 
-const geistSans = Geist({
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-manrope",
+  display: "swap",
 });
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  themeColor: "#0B0B0B",
 };
 
 export const metadata: Metadata = {
   ...rootMetadata,
   description: defaultDescription,
   keywords: [
+    "marketing digital",
+    "tráfego pago",
     "criação de sites",
-    "Web Studio",
-    "Francine Soares",
+    "landing page",
+    "gestão de redes sociais",
+    "presença digital",
+    "Vortexa",
     "Florianópolis",
-    "sites profissionais",
   ],
   openGraph: {
     ...rootMetadata.openGraph,
@@ -54,11 +58,9 @@ export default function RootLayout({
     <html
       lang="pt-BR"
       suppressHydrationWarning
-      className={cn("dark font-sans antialiased", geistSans.variable)}
+      className={cn("font-sans antialiased", manrope.variable, manrope.className)}
     >
-      <body className="bg-surface text-foreground">
-        <SiteChrome>{children}</SiteChrome>
-      </body>
+      <body className="bg-background text-foreground">{children}</body>
     </html>
   );
 }
