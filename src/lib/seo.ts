@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 
-import { siteConfig, siteTitle, siteUrl } from "@/config/site";
+import {
+  siteConfig,
+  siteDescription,
+  siteKeywords,
+  siteTitle,
+  siteUrl,
+} from "@/config/site";
 
 type PageMetadataInput = {
   title: string;
@@ -24,6 +30,18 @@ const indexableRobots: Metadata["robots"] = {
   },
 };
 
+export function toCanonicalPath(path = ""): string {
+  const withoutHash = path.split("#")[0] ?? "";
+  if (!withoutHash || withoutHash === "/") return "";
+  return withoutHash.startsWith("/") ? withoutHash : `/${withoutHash}`;
+}
+
+function googleVerification(): Metadata["verification"] {
+  const code = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
+  if (!code) return undefined;
+  return { google: code };
+}
+
 export function createPageMetadata({
   title,
   description,
@@ -33,7 +51,7 @@ export function createPageMetadata({
   ogType = "website",
   index = true,
 }: PageMetadataInput): Metadata {
-  const url = `${siteUrl}${path}`;
+  const url = `${siteUrl}${toCanonicalPath(path)}`;
   const fullTitle = absoluteTitle ? title : `${title} — ${siteConfig.name}`;
 
   return {
@@ -45,10 +63,13 @@ export function createPageMetadata({
     authors: [{ name: siteConfig.name, url: siteUrl }],
     creator: siteConfig.name,
     publisher: siteConfig.name,
-    category: "technology",
+    category: "marketing",
     robots: index ? indexableRobots : { index: false, follow: true },
     alternates: {
       canonical: url,
+      languages: {
+        "pt-BR": url,
+      },
     },
     openGraph: {
       title: fullTitle,
@@ -72,18 +93,32 @@ export const rootMetadata: Metadata = {
     default: siteTitle,
     template: `%s — ${siteConfig.name}`,
   },
+  description: siteDescription,
+  keywords: siteKeywords.split(",").map((item) => item.trim()),
   applicationName: siteConfig.name,
   authors: [{ name: siteConfig.name, url: siteUrl }],
   creator: siteConfig.name,
   publisher: siteConfig.name,
-  category: "technology",
+  category: "marketing",
   robots: indexableRobots,
+  verification: googleVerification(),
+  alternates: {
+    canonical: siteUrl,
+    languages: {
+      "pt-BR": siteUrl,
+    },
+  },
   openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    url: siteUrl,
     siteName: siteConfig.name,
     locale: "pt_BR",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
   },
 };

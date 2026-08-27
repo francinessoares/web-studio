@@ -48,9 +48,8 @@ export function AboutSection() {
                 {person.photo ? (
                   <Image
                     src={person.photo.src}
-                    alt=""
+                    alt={`${person.name}, ${person.role}`}
                     fill
-                    unoptimized
                     className="object-cover object-top"
                     sizes="(min-width: 1024px) 28vw, (min-width: 640px) 45vw, 100vw"
                   />

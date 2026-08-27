@@ -6,7 +6,12 @@ import {
   hrefToString,
   shouldHandleInPageHash,
 } from "@/lib/hash-navigation";
-import { createPageMetadata } from "@/lib/seo";
+import {
+  buildFaqJsonLd,
+  buildOrganizationJsonLd,
+  serializeJsonLd,
+} from "@/lib/json-ld";
+import { createPageMetadata, toCanonicalPath } from "@/lib/seo";
 
 describe("resolveSiteUrl", () => {
   it("usa NEXT_PUBLIC_SITE_URL quando definida", () => {
@@ -77,13 +82,15 @@ describe("createPageMetadata", () => {
   it("define título, descrição, canonical e redes sociais", () => {
     const metadata = createPageMetadata({
       title: "Contato",
-      description: "Fale com o Web Studio",
+      description: "Fale com a Vortexa",
       path: "/#contato",
     });
 
     expect(metadata.title).toBe("Contato");
-    expect(metadata.description).toBe("Fale com o Web Studio");
-    expect(metadata.alternates?.canonical).toContain("/#contato");
+    expect(metadata.description).toBe("Fale com a Vortexa");
+    expect(String(metadata.alternates?.canonical)).not.toContain("#");
+    expect(toCanonicalPath("/#contato")).toBe("");
+    expect(toCanonicalPath("/design-system")).toBe("/design-system");
     expect(metadata.openGraph?.title).toContain("Contato");
     expect(metadata.robots).toEqual(
       expect.objectContaining({
@@ -94,6 +101,36 @@ describe("createPageMetadata", () => {
     expect(metadata.twitter).toEqual(
       expect.objectContaining({
         card: "summary_large_image",
+      }),
+    );
+  });
+});
+
+describe("json-ld", () => {
+  it("descreve a Vortexa sem prova social inventada", () => {
+    const organization = buildOrganizationJsonLd();
+
+    expect(organization.name).toBe("Vortexa");
+    expect(organization.address).toEqual(
+      expect.objectContaining({
+        addressLocality: "Florianópolis",
+        addressCountry: "BR",
+      }),
+    );
+    expect(organization).not.toHaveProperty("aggregateRating");
+    expect(organization).not.toHaveProperty("review");
+    expect(serializeJsonLd({ html: "<p>oi</p>" })).toContain("\\u003cp>");
+    expect(serializeJsonLd({ html: "<p>oi</p>" })).not.toContain("<p>");
+  });
+
+  it("expõe as perguntas reais do FAQ", () => {
+    const faqPage = buildFaqJsonLd();
+
+    expect(faqPage.mainEntity).toHaveLength(8);
+    expect(faqPage.mainEntity[0]).toEqual(
+      expect.objectContaining({
+        "@type": "Question",
+        name: "Quanto custa contratar?",
       }),
     );
   });

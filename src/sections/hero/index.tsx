@@ -111,7 +111,7 @@ export function Hero() {
           <motion.div variants={variants.item} className="min-w-0">
             <Image
               src="/images/products.png"
-              alt="Presença digital em notebook e celular"
+              alt="Notebook e celular mostrando presença digital para negócios"
               width={1536}
               height={1024}
               priority

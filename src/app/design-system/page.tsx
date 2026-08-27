@@ -5,7 +5,7 @@ import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Design System",
-  description: "Fundação visual do Web Studio — tokens, tipografia e componentes base.",
+  description: "Fundação visual da Vortexa — tokens, tipografia e componentes base.",
   path: "/design-system",
   index: false,
 });

@@ -43,7 +43,17 @@ export function resolveSiteUrl({
 
 export const siteUrl = resolveSiteUrl();
 
-export const siteTitle = `${siteConfig.name} — Presença digital e crescimento`;
+export const siteTitle =
+  "Vortexa — Marketing digital e sites em Florianópolis";
+
+export const siteDescription =
+  "A Vortexa une marketing digital, tráfego pago e tecnologia para o seu negócio crescer no digital. Atendimento em Florianópolis. Conversa sem compromisso.";
+
+export const siteKeywords =
+  "marketing digital Florianópolis, tráfego pago, criação de sites, landing page, gestão de redes sociais, automação, Vortexa";
+
+export const ogImageAlt =
+  "Vortexa — marketing digital, tráfego pago e sites em Florianópolis";
 
 export function getWhatsAppUrl(message: string, phone = siteConfig.whatsappPhone) {
   const digits = phone.replace(/\D/g, "");

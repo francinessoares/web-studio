@@ -41,7 +41,7 @@ export function ProjectsSection() {
           <div className="overflow-hidden rounded-[16px] border border-border-dark bg-surface-dark">
             <Image
               src="/images/evuflow-hero.png"
-              alt="Tela inicial do EvuFlow"
+              alt="Tela inicial do EvuFlow, plataforma de inteligência corporal"
               width={1871}
               height={861}
               className="h-auto w-full"
