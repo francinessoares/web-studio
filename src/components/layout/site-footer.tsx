@@ -1,85 +1,146 @@
-import Link from "next/link";
-import { Mail } from "lucide-react";
+import { ArrowUpRight, MessageCircle } from "lucide-react";
+import { FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
+import { BrandLogo } from "@/components/brand/logo";
+import { InPageHashLink } from "@/components/in-page-hash-link";
+import { ButtonLink } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
 import { navItems } from "@/config/navigation";
-import { siteConfig } from "@/config/site";
+import { siteConfig, getWhatsAppUrl } from "@/config/site";
+import { services } from "@/data/services";
 import { cn } from "@/lib/utils";
 
-const footerLinkClass = cn(
-  "inline-flex min-h-[44px] items-center text-[14px] tracking-[-0.01em] text-fg-muted transition-premium",
-  "hover:text-accent-light",
-);
+const footerLinkClass =
+  "inline-flex min-h-[44px] items-center text-[14px] text-neutral-400 transition-premium hover:text-dark-foreground";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
+  const whatsapp = getWhatsAppUrl("Olá. Quero falar sobre o meu negócio.");
 
   return (
-    <footer className="relative border-t border-border-subtle bg-surface">
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/[0.06] to-transparent"
-        aria-hidden
-      />
-
-      <div className="layout-rail relative mx-auto w-full px-[20px] py-[72px] sm:px-[32px] sm:py-[88px] lg:py-[96px] xl:px-[40px]">
-        <div className="grid gap-[48px] sm:grid-cols-2 lg:grid-cols-12 lg:gap-[40px]">
-          <div className="sm:col-span-2 lg:col-span-6">
-            <Link
-              href="/"
-              className="focus-ring group inline-flex min-h-[44px] items-center"
-            >
-              <span className="text-[18px] font-semibold tracking-[-0.02em] text-fg-primary">
-                Web Studio
-                <span className="text-accent-light">.</span>
-              </span>
-            </Link>
-            <p className="mt-[16px] max-w-[42ch] text-[15px] leading-[26px] text-fg-body">
-              Estúdio de Francine Soares para criação de sites profissionais em{" "}
-              {siteConfig.location.city}, {siteConfig.location.region}.
+    <footer className="bg-dark text-dark-foreground [--ring:var(--dark-foreground)]">
+      <Container className="py-[64px]">
+        <div className="grid gap-[40px] lg:grid-cols-12">
+          <div className="lg:col-span-3">
+            <BrandLogo size="footer" />
+            <p className="text-body-sm mt-[16px] max-w-[28ch] text-neutral-400">
+              Presença digital, marketing, tráfego e tecnologia para o negócio
+              crescer.
             </p>
           </div>
 
-          <div className="lg:col-span-3">
-            <p className="text-[11px] font-semibold tracking-[0.12em] text-fg-faint uppercase">
-              Navegação
-            </p>
-            <ul className="mt-[16px] flex flex-col gap-[4px]">
+          <div className="lg:col-span-2">
+            <p className="text-[14px] font-semibold">Navegação</p>
+            <ul className="mt-[12px] flex flex-col">
               {navItems.map((item) => (
                 <li key={item.id}>
-                  <Link href={item.href} className={cn("focus-ring", footerLinkClass)}>
+                  <InPageHashLink href={item.href} className={cn("focus-ring", footerLinkClass)}>
                     {item.label}
-                  </Link>
+                  </InPageHashLink>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="lg:col-span-3">
-            <p className="text-[11px] font-semibold tracking-[0.12em] text-fg-faint uppercase">
-              Contato
-            </p>
-            <ul className="mt-[16px] flex flex-col gap-[4px]">
-              <li>
-                <a
-                  href={`mailto:${siteConfig.email}`}
-                  className={cn("focus-ring group gap-[10px]", footerLinkClass)}
-                >
-                  <Mail className="size-[16px] shrink-0 text-accent-light" aria-hidden />
-                  E-mail
-                </a>
+          <div className="lg:col-span-2">
+            <p className="text-[14px] font-semibold">Serviços</p>
+            <ul className="mt-[12px] flex flex-col">
+              {services.map((service) => (
+                <li key={service.id}>
+                  <InPageHashLink href="/#servicos" className={cn("focus-ring", footerLinkClass)}>
+                    {service.name}
+                  </InPageHashLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="lg:col-span-2">
+            <p className="text-[14px] font-semibold">Contato</p>
+            <ul className="mt-[12px] flex flex-col">
+              {siteConfig.email ? (
+                <li>
+                  <a
+                    href={`mailto:${siteConfig.email}`}
+                    className={cn("focus-ring", footerLinkClass)}
+                  >
+                    {siteConfig.email}
+                  </a>
+                </li>
+              ) : null}
+              <li className="text-body-sm py-[12px] text-neutral-400">
+                {siteConfig.location.city}, {siteConfig.location.region}
+              </li>
+              <li className="flex items-center gap-[12px] pt-[4px]">
+                {siteConfig.instagramUrl ? (
+                  <a
+                    href={siteConfig.instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="focus-ring inline-flex size-[44px] items-center justify-center"
+                    aria-label="Instagram"
+                  >
+                    <FaInstagram className="size-[18px]" aria-hidden />
+                  </a>
+                ) : null}
+                {whatsapp ? (
+                  <a
+                    href={whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="focus-ring inline-flex size-[44px] items-center justify-center"
+                    aria-label="WhatsApp"
+                  >
+                    <MessageCircle className="size-[18px]" aria-hidden />
+                  </a>
+                ) : null}
+                {siteConfig.linkedInProfile ? (
+                  <a
+                    href={siteConfig.linkedInProfile}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="focus-ring inline-flex size-[44px] items-center justify-center"
+                    aria-label="LinkedIn"
+                  >
+                    <FaLinkedinIn className="size-[18px]" aria-hidden />
+                  </a>
+                ) : null}
               </li>
             </ul>
           </div>
+
+          <div className="lg:col-span-3">
+            <p className="text-[18px] font-semibold tracking-[-0.5px]">
+              Vamos conversar sobre o seu projeto?
+            </p>
+            {whatsapp ? (
+              <ButtonLink
+                href={whatsapp}
+                size="pill"
+                className="mt-[20px]"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Falar no WhatsApp
+              </ButtonLink>
+            ) : (
+              <ButtonLink href="/#contato" size="pill" className="mt-[20px]">
+                Quero crescer
+                <ArrowUpRight className="size-[16px]" aria-hidden />
+              </ButtonLink>
+            )}
+          </div>
         </div>
 
-        <div className="mt-[56px] flex flex-col gap-[12px] border-t border-white/[0.06] pt-[32px] sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[13px] leading-[22px] text-fg-muted">
+        <div className="mt-[48px] flex flex-col gap-[8px] border-t border-border-dark pt-[24px] sm:flex-row sm:justify-between">
+          <p className="text-body-sm text-neutral-400">
             © {year} {siteConfig.name}. Todos os direitos reservados.
           </p>
-          <p className="text-[12px] text-fg-faint">
-            {siteConfig.location.city} · {siteConfig.location.region}
+          <p className="text-caption text-neutral-500">
+            {siteConfig.location.city}, {siteConfig.location.region}
           </p>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

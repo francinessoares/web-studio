@@ -1,14 +1,20 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
+
+import { canonicalLocationHash, replaceStackedHash } from "@/lib/hash-navigation";
 
 function subscribeHash(listener: () => void) {
   window.addEventListener("hashchange", listener);
-  return () => window.removeEventListener("hashchange", listener);
+  window.addEventListener("popstate", listener);
+  return () => {
+    window.removeEventListener("hashchange", listener);
+    window.removeEventListener("popstate", listener);
+  };
 }
 
 function getHashSnapshot() {
-  return window.location.hash;
+  return canonicalLocationHash(window.location.hash);
 }
 
 function getServerHashSnapshot() {
@@ -16,5 +22,13 @@ function getServerHashSnapshot() {
 }
 
 export function useHash() {
-  return useSyncExternalStore(subscribeHash, getHashSnapshot, getServerHashSnapshot);
+  useEffect(() => {
+    replaceStackedHash();
+  }, []);
+
+  return useSyncExternalStore(
+    subscribeHash,
+    getHashSnapshot,
+    getServerHashSnapshot,
+  );
 }

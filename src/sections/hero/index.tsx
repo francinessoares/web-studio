@@ -1,62 +1,125 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 
+import { ButtonLink } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
+import { Heading } from "@/components/ui/heading";
+import { trackEvent } from "@/lib/analytics";
 import { buildHeroVariants, useMotionPrefs } from "@/lib/motion";
+
+function HeroTitle() {
+  return (
+    <>
+      <span className="block">Seu negócio</span>
+      <span className="block">pronto para</span>
+      <span className="block">
+        <span className="relative z-0 inline-block px-[2px]">
+          crescer
+          <span
+            className="absolute inset-x-0 bottom-[6px] -z-10 h-[12px] bg-primary sm:bottom-[8px] sm:h-[14px] lg:bottom-[10px] lg:h-[18px]"
+            aria-hidden
+          />
+        </span>{" "}
+        no digital.
+      </span>
+    </>
+  );
+}
 
 export function Hero() {
   const { reducedMotion } = useMotionPrefs();
   const variants = buildHeroVariants(reducedMotion);
 
   return (
-    <section className="relative overflow-x-clip px-[20px] pt-[128px] pb-[72px] sm:px-[32px] sm:pt-[148px] sm:pb-[88px] lg:pt-[168px] lg:pb-[104px]">
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.16),transparent_42%)]"
-        aria-hidden
-      />
-      <motion.div
-        className="layout-rail relative mx-auto w-full"
-        initial="hidden"
-        animate="visible"
-        variants={variants.container}
-      >
-        <motion.p
-          variants={variants.badge}
-          className="text-[12px] font-medium tracking-[0.16em] text-eyebrow uppercase"
+    <section
+      id="hero"
+      aria-labelledby="hero-heading"
+      className="relative overflow-x-clip bg-background scroll-mt-[96px]"
+    >
+      <Container>
+        <motion.div
+          className="grid items-center gap-[48px] pt-[64px] pb-[80px] lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)] lg:gap-[56px] lg:pt-[88px] lg:pb-[120px] lg:min-h-[calc(100svh-96px)]"
+          initial="hidden"
+          animate="visible"
+          variants={variants.container}
         >
-          Estúdio de sites
-        </motion.p>
-        <motion.h1
-          variants={variants.headline}
-          className="font-heading mt-[16px] max-w-[16ch] text-[40px] leading-[1.08] font-semibold tracking-[-0.04em] text-fg-primary sm:text-[52px] lg:text-[64px]"
-        >
-          Sites profissionais para o seu negócio
-        </motion.h1>
-        <motion.p
-          variants={variants.item}
-          className="mt-[20px] max-w-[52ch] text-[16px] leading-[28px] text-fg-body sm:text-[17px] sm:leading-[30px]"
-        >
-          A Web Studio cria sites rápidos, acessíveis e com identidade própria —
-          do primeiro contato ao lançamento, com acompanhamento próximo.
-        </motion.p>
-        <motion.div variants={variants.item} className="mt-[32px] flex flex-wrap gap-[12px]">
-          <Link
-            href="/#contato"
-            className="focus-ring inline-flex min-h-[48px] items-center gap-[8px] rounded-[12px] bg-accent px-[20px] text-[15px] font-medium text-white transition-premium hover:bg-accent-deep"
-          >
-            Pedir um orçamento
-            <ArrowRight className="size-[16px]" aria-hidden />
-          </Link>
-          <Link
-            href="/#servicos"
-            className="focus-ring inline-flex min-h-[48px] items-center rounded-[12px] border border-border-strong px-[20px] text-[15px] font-medium text-fg-primary transition-premium hover:border-accent-light/40 hover:text-accent-light"
-          >
-            Ver o que fazemos
-          </Link>
+          <div>
+            <motion.p
+              variants={variants.badge}
+              className="font-eyebrow inline-flex items-center gap-[8px] text-foreground"
+            >
+              <span className="size-[8px] bg-primary" aria-hidden />
+              Presença digital que gera clientes
+            </motion.p>
+            <motion.div variants={variants.headline}>
+              <Heading
+                level={1}
+                id="hero-heading"
+                className="mt-[20px] max-w-[10ch] sm:max-w-[11ch]"
+              >
+                <HeroTitle />
+              </Heading>
+            </motion.div>
+            <motion.p
+              variants={variants.item}
+              className="text-body-lg mt-[24px] max-w-[40ch] text-neutral-600"
+            >
+              Unimos estratégia, marketing, tráfego pago e tecnologia para
+              transformar sua presença digital em oportunidades reais de
+              negócio.
+            </motion.p>
+            <motion.div
+              variants={variants.item}
+              className="mt-[40px] flex w-full max-w-[400px] flex-col gap-[12px]"
+            >
+              <ButtonLink
+                href="/#contato"
+                variant="primary"
+                className="w-full shrink-0 px-[16px] text-[14px] whitespace-nowrap sm:px-[24px] sm:text-[16px]"
+                onClick={() =>
+                  trackEvent({
+                    event: "cta_click",
+                    label: "hero_crescer",
+                    href: "/#contato",
+                  })
+                }
+              >
+                Quero fazer meu negócio crescer
+                <ArrowUpRight className="size-[16px] shrink-0" aria-hidden />
+              </ButtonLink>
+              <ButtonLink
+                href="/#servicos"
+                variant="secondary"
+                className="w-full shrink-0 px-[16px] text-[14px] whitespace-nowrap sm:px-[24px] sm:text-[16px]"
+                onClick={() =>
+                  trackEvent({
+                    event: "cta_click",
+                    label: "hero_servicos",
+                    href: "/#servicos",
+                  })
+                }
+              >
+                Conhecer nossos serviços
+                <ArrowRight className="size-[16px] shrink-0" aria-hidden />
+              </ButtonLink>
+            </motion.div>
+          </div>
+
+          <motion.div variants={variants.item} className="min-w-0">
+            <Image
+              src="/images/products.png"
+              alt="Presença digital em notebook e celular"
+              width={1536}
+              height={1024}
+              priority
+              className="mx-auto h-auto w-full max-w-[720px] object-contain lg:max-w-none"
+            />
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </Container>
     </section>
   );
 }

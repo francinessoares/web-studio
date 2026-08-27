@@ -1,32 +1,54 @@
-import { Mail } from "lucide-react";
+import { SectionHeading } from "@/components/primitives/section-heading";
+import { SectionShell } from "@/components/primitives/section-shell";
+import { ButtonLink } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { siteConfig, getWhatsAppUrl } from "@/config/site";
 
-import { siteConfig } from "@/config/site";
+import { LeadForm } from "./lead-form";
 
-export function ContactCta() {
+export function ContactSection() {
+  const whatsapp = getWhatsAppUrl(
+    "Olá. Quero falar com um especialista sobre o meu negócio.",
+  );
+
   return (
-    <section
-      id="contato"
-      className="scroll-mt-[96px] px-[20px] py-[72px] sm:px-[32px] sm:py-[88px] lg:pb-[120px]"
-    >
-      <div className="layout-rail mx-auto w-full rounded-[24px] border border-border-default bg-surface-elevated px-[24px] py-[40px] sm:px-[40px] sm:py-[56px]">
-        <p className="text-[12px] font-medium tracking-[0.16em] text-eyebrow uppercase">
-          Contato
-        </p>
-        <h2 className="font-heading mt-[12px] max-w-[16ch] text-[28px] leading-[1.1] font-medium tracking-[-0.035em] text-fg-primary sm:text-[36px]">
-          Vamos conversar sobre o seu site
-        </h2>
-        <p className="mt-[16px] max-w-[48ch] text-[16px] leading-[28px] text-fg-body">
-          Conte o momento do projeto e o que você precisa. Respondo em{" "}
-          {siteConfig.location.city} com uma proposta clara e próxima.
-        </p>
-        <a
-          href={`mailto:${siteConfig.email}`}
-          className="focus-ring mt-[28px] inline-flex min-h-[48px] items-center gap-[8px] rounded-[12px] bg-accent px-[20px] text-[15px] font-medium text-white transition-premium hover:bg-accent-deep"
-        >
-          <Mail className="size-[16px]" aria-hidden />
-          Enviar e-mail
-        </a>
+    <SectionShell id="contato" labelledBy="contato-heading">
+      <div className="editorial-grid">
+        <div className="col-span-4 lg:col-span-5">
+          <SectionHeading
+            eyebrow="Contato"
+            title="Conte o seu negócio. A gente devolve o próximo passo."
+            description={
+              whatsapp
+                ? "Formulário curto. Se preferir, chame no WhatsApp."
+                : siteConfig.email
+                  ? "Formulário curto. Se preferir, escreva para o e-mail da página."
+                  : "Formulário curto. Conte o negócio e a gente retorna."
+            }
+            titleId="contato-heading"
+          />
+          {whatsapp ? (
+            <ButtonLink
+              href={whatsapp}
+              variant="secondary"
+              className="mt-[24px]"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Falar no WhatsApp
+            </ButtonLink>
+          ) : siteConfig.email ? (
+            <p className="text-body-sm mt-[24px] text-muted">
+              Use o formulário ou escreva para {siteConfig.email}.
+            </p>
+          ) : null}
+        </div>
+        <div className="col-span-4 lg:col-span-6 lg:col-start-7">
+          <Card variant="dark" className="[color-scheme:dark]">
+            <LeadForm />
+          </Card>
+        </div>
       </div>
-    </section>
+    </SectionShell>
   );
 }

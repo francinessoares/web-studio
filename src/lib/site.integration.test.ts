@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
 import { getWhatsAppUrl, resolveSiteUrl } from "@/config/site";
+import {
+  canonicalLocationHash,
+  hrefToString,
+  shouldHandleInPageHash,
+} from "@/lib/hash-navigation";
 import { createPageMetadata } from "@/lib/seo";
 
 describe("resolveSiteUrl", () => {
@@ -91,5 +96,28 @@ describe("createPageMetadata", () => {
         card: "summary_large_image",
       }),
     );
+  });
+});
+
+describe("hash navigation", () => {
+  it("usa o último âncora quando o Next empilha hashes", () => {
+    expect(canonicalLocationHash("#servicos#faq")).toBe("#faq");
+    expect(canonicalLocationHash("#faq")).toBe("#faq");
+    expect(canonicalLocationHash("")).toBe("");
+  });
+
+  it("trata âncoras da Home na própria Home", () => {
+    expect(shouldHandleInPageHash("/#faq", "/")).toBe(true);
+    expect(shouldHandleInPageHash("/#servicos", "/")).toBe(true);
+    expect(shouldHandleInPageHash("/", "/")).toBe(true);
+    expect(shouldHandleInPageHash("/#faq", "/design-system")).toBe(false);
+    expect(shouldHandleInPageHash("https://wa.me/48999990000", "/")).toBe(
+      false,
+    );
+  });
+
+  it("serializa href com hash", () => {
+    expect(hrefToString("/#contato")).toBe("/#contato");
+    expect(hrefToString({ pathname: "/", hash: "#faq" })).toBe("/#faq");
   });
 });

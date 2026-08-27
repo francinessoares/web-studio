@@ -1,35 +1,16 @@
 "use client";
 
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useState } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, MessageSquare, X } from "lucide-react";
 
+import { BrandLogo } from "@/components/brand/logo";
 import { NavLink } from "@/components/layout/site-header-nav-link";
+import { ButtonLink } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
 import { navItems } from "@/config/navigation";
-import { siteConfig } from "@/config/site";
 import { useHash } from "@/hooks/use-hash";
 import { cn } from "@/lib/utils";
-
-function SiteLogo() {
-  return (
-    <Link
-      href="/"
-      className="focus-ring group flex min-h-[44px] items-center gap-[8px] sm:gap-[10px]"
-      aria-label={siteConfig.name}
-    >
-      <div className="leading-none">
-        <span className="block text-[15px] font-semibold tracking-[-0.02em] text-fg-primary sm:text-[16px]">
-          Web Studio
-          <span className="text-accent-light">.</span>
-        </span>
-        <span className="mt-[4px] block text-[10px] font-medium text-fg-muted sm:mt-[5px] sm:text-[11px]">
-          {siteConfig.role}
-        </span>
-      </div>
-    </Link>
-  );
-}
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -49,13 +30,13 @@ export function SiteHeader() {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 isolate z-[100] px-[16px] pt-[max(14px,env(safe-area-inset-top,0px)+10px)] sm:px-[24px]">
-      <div className="glass-nav layout-rail relative z-[2] mx-auto w-full px-[12px] py-[10px] sm:px-[24px] sm:py-[14px]">
-        <div className="flex items-center justify-between gap-[12px]">
-          <SiteLogo />
+    <header className="sticky top-0 z-[100] bg-dark pt-[env(safe-area-inset-top,0px)] text-dark-foreground [--ring:var(--dark-foreground)]">
+      <Container>
+        <div className="grid min-h-[96px] grid-cols-[1fr_auto] items-center gap-[16px] lg:grid-cols-[1fr_auto_1fr]">
+          <BrandLogo priority />
 
           <nav
-            className="hidden items-center justify-center md:flex"
+            className="hidden items-center justify-center lg:flex"
             aria-label="Navegação principal"
           >
             {navItems.map((item) => (
@@ -64,22 +45,24 @@ export function SiteHeader() {
                 href={item.href}
                 label={item.label}
                 active={isActive(item.href)}
+                tone="dark"
               />
             ))}
           </nav>
 
-          <div className="flex shrink-0 items-center gap-[8px]">
-            <Link
+          <div className="flex items-center justify-end gap-[8px]">
+            <ButtonLink
               href="/#contato"
-              className="nav-cta focus-ring hidden min-h-[44px] sm:inline-flex"
+              size="pill"
+              className="hidden sm:inline-flex"
             >
-              <MessageSquare className="size-[16px] text-accent-light" aria-hidden />
-              Fale comigo
-            </Link>
+              Quero crescer
+              <ArrowUpRight className="size-[14px]" aria-hidden />
+            </ButtonLink>
 
             <button
               type="button"
-              className="focus-ring inline-flex size-[44px] items-center justify-center rounded-[12px] text-fg-primary md:hidden"
+              className="focus-ring inline-flex size-[44px] items-center justify-center rounded-[10px] text-dark-foreground lg:hidden"
               aria-expanded={menuOpen}
               aria-controls="menu-principal"
               aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
@@ -93,35 +76,37 @@ export function SiteHeader() {
             </button>
           </div>
         </div>
+      </Container>
 
-        <nav
-          id="menu-principal"
-          className={cn(
-            "mt-[12px] flex-col gap-[4px] md:hidden",
-            menuOpen ? "flex" : "hidden",
-          )}
-          aria-label="Navegação mobile"
-        >
-          {navItems.map((item) => (
-            <NavLink
-              key={item.id}
-              href={item.href}
-              label={item.label}
-              active={isActive(item.href)}
-              onClick={closeMenu}
-              className="w-full justify-start"
-            />
-          ))}
-          <Link
-            href="/#contato"
+      <nav
+        id="menu-principal"
+        className={cn(
+          "border-t border-border-dark bg-dark px-[20px] py-[16px] lg:hidden",
+          menuOpen ? "flex flex-col gap-[4px]" : "hidden",
+        )}
+        aria-label="Navegação mobile"
+      >
+        {navItems.map((item) => (
+          <NavLink
+            key={item.id}
+            href={item.href}
+            label={item.label}
+            active={isActive(item.href)}
+            tone="dark"
             onClick={closeMenu}
-            className="nav-cta focus-ring mt-[8px] min-h-[44px] justify-center"
-          >
-            <MessageSquare className="size-[16px] text-accent-light" aria-hidden />
-            Fale comigo
-          </Link>
-        </nav>
-      </div>
+            className="w-full justify-start"
+          />
+        ))}
+        <ButtonLink
+          href="/#contato"
+          size="pill"
+          onClick={closeMenu}
+          className="mt-[8px] w-full"
+        >
+          Quero crescer
+          <ArrowUpRight className="size-[16px]" aria-hidden />
+        </ButtonLink>
+      </nav>
     </header>
   );
 }

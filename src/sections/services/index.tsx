@@ -1,39 +1,65 @@
-import { services } from "@/data/services";
+import {
+  Globe,
+  LayoutTemplate,
+  Megaphone,
+  Share2,
+  Sparkles,
+  Target,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-export function Services() {
+import { SectionHeading } from "@/components/primitives/section-heading";
+import { SectionShell } from "@/components/primitives/section-shell";
+import { Link } from "@/components/ui/link";
+import { services, type ServiceId } from "@/data/services";
+
+const serviceIcons: Record<ServiceId, LucideIcon> = {
+  marketing: Megaphone,
+  social: Share2,
+  ads: Target,
+  sites: Globe,
+  landing: LayoutTemplate,
+  automation: Sparkles,
+};
+
+export function ServicesSection() {
   return (
-    <section
-      id="servicos"
-      className="scroll-mt-[96px] px-[20px] py-[72px] sm:px-[32px] sm:py-[88px] lg:py-[96px]"
-    >
-      <div className="layout-rail mx-auto w-full">
-        <p className="text-[12px] font-medium tracking-[0.16em] text-eyebrow uppercase">
-          O que fazemos
-        </p>
-        <h2 className="font-heading mt-[12px] max-w-[18ch] text-[28px] leading-[1.1] font-medium tracking-[-0.035em] text-fg-primary sm:text-[36px]">
-          Sites pensados para o seu negócio aparecer bem
-        </h2>
-        <p className="mt-[16px] max-w-[52ch] text-[16px] leading-[28px] text-fg-body">
-          Cada projeto começa pela conversa: o que você precisa comunicar, para quem
-          e qual resultado espera.
-        </p>
-
-        <ul className="mt-[40px] grid gap-[16px] sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
+    <SectionShell id="servicos" labelledBy="servicos-heading">
+      <SectionHeading
+        align="center"
+        eyebrow="Serviços"
+        title="O que fazemos, com clareza."
+        description="Cada frente tem um papel. Você pode começar por uma delas ou montar o conjunto."
+        titleId="servicos-heading"
+      />
+      <ul className="mt-[48px] grid gap-[16px] sm:grid-cols-2 lg:grid-cols-3">
+        {services.map((service) => {
+          const Icon = serviceIcons[service.id];
+          return (
             <li
               key={service.id}
-              className="rounded-[16px] border border-border-default bg-surface-card p-[24px]"
+              className="flex flex-col rounded-[16px] bg-dark p-[28px] text-dark-foreground [--ring:var(--dark-foreground)]"
             >
-              <h3 className="text-[18px] font-semibold tracking-[-0.02em] text-fg-primary">
-                {service.title}
+              <Icon className="size-[22px] text-primary" strokeWidth={1.5} aria-hidden />
+              <h3 className="mt-[24px] text-[20px] leading-[1.2] font-bold tracking-[-0.5px]">
+                {service.name}
               </h3>
-              <p className="mt-[10px] text-[15px] leading-[24px] text-fg-body">
+              <p className="text-body-sm mt-[12px] flex-1 text-neutral-400">
                 {service.description}
               </p>
+              <p className="text-caption mt-[24px] text-neutral-400">Investimento</p>
+              <p className="mt-[4px] text-[18px] font-bold">Alinhamos na conversa</p>
+              <Link
+                href="/#contato"
+                tone="dark"
+                className="mt-[8px] min-h-[44px] text-[14px]"
+              >
+                {service.cta}
+              </Link>
             </li>
-          ))}
-        </ul>
-      </div>
-    </section>
+          );
+        })}
+      </ul>
+    </SectionShell>
   );
 }

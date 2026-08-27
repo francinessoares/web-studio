@@ -1,12 +1,11 @@
 export const siteConfig = {
-  name: "Web Studio",
-  role: "Criação de sites",
+  name: "Vortexa",
+  role: "Presença digital e crescimento",
+  instagramUrl: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "",
   githubProfile:
     process.env.NEXT_PUBLIC_GITHUB_URL ?? "https://github.com/francinessoares",
-  linkedInProfile:
-    process.env.NEXT_PUBLIC_LINKEDIN_URL ??
-    "https://www.linkedin.com/in/francine-soares-5ba112124/",
-  email: process.env.NEXT_PUBLIC_EMAIL ?? "francinesoares22@gmail.com",
+  linkedInProfile: process.env.NEXT_PUBLIC_LINKEDIN_URL?.trim() ?? "",
+  email: process.env.NEXT_PUBLIC_EMAIL?.trim() ?? "",
   whatsappPhone: process.env.NEXT_PUBLIC_WHATSAPP_PHONE ?? "",
   location: {
     city: "Florianópolis",
@@ -44,7 +43,7 @@ export function resolveSiteUrl({
 
 export const siteUrl = resolveSiteUrl();
 
-export const siteTitle = `${siteConfig.name} — Sites profissionais`;
+export const siteTitle = `${siteConfig.name} — Presença digital e crescimento`;
 
 export function getWhatsAppUrl(message: string, phone = siteConfig.whatsappPhone) {
   const digits = phone.replace(/\D/g, "");

@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { InPageHashLink } from "@/components/in-page-hash-link";
 import { cn } from "@/lib/utils";
 
 type NavLinkProps = {
@@ -8,24 +7,38 @@ type NavLinkProps = {
   active: boolean;
   onClick?: () => void;
   className?: string;
+  tone?: "light" | "dark";
 };
 
-export function NavLink({ href, label, active, onClick, className }: NavLinkProps) {
+export function NavLink({
+  href,
+  label,
+  active,
+  onClick,
+  className,
+  tone = "light",
+}: NavLinkProps) {
   return (
-    <Link
+    <InPageHashLink
       href={href}
       onClick={onClick}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "focus-ring relative inline-flex min-h-[44px] items-center px-[16px] py-[10px] text-[13px] font-medium tracking-[-0.01em] transition-premium",
-        active ? "text-accent-light" : "text-fg-muted hover:text-fg-secondary",
+        "focus-ring relative inline-flex min-h-[44px] items-center px-[10px] py-[10px] text-[13px] font-medium transition-premium lg:px-[12px]",
+        tone === "dark"
+          ? active
+            ? "text-dark-foreground"
+            : "text-neutral-400 hover:text-dark-foreground"
+          : active
+            ? "text-foreground"
+            : "text-muted hover:text-foreground",
         className,
       )}
     >
       {label}
       {active ? (
-        <span className="absolute inset-x-[16px] bottom-[6px] h-[2px] rounded-full bg-accent-light shadow-[0_0_8px_rgba(196,120,255,0.6)]" />
+        <span className="absolute inset-x-[10px] bottom-[8px] h-[2px] bg-primary lg:inset-x-[12px]" />
       ) : null}
-    </Link>
+    </InPageHashLink>
   );
 }
