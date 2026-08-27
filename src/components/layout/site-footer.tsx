@@ -1,5 +1,4 @@
 import { ArrowUpRight, MessageCircle } from "lucide-react";
-import { FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 import { BrandLogo } from "@/components/brand/logo";
 import { InPageHashLink } from "@/components/in-page-hash-link";
@@ -12,6 +11,36 @@ import { cn } from "@/lib/utils";
 
 const footerLinkClass =
   "inline-flex min-h-[44px] items-center text-[14px] text-neutral-400 transition-premium hover:text-dark-foreground";
+
+function InstagramIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="size-[18px]"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      aria-hidden
+    >
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.25" cy="6.75" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function LinkedinIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="size-[18px]"
+      fill="currentColor"
+      aria-hidden
+    >
+      <path d="M6.5 9H4V20h2.5V9ZM5.25 4A1.5 1.5 0 1 0 5.26 7 1.5 1.5 0 0 0 5.25 4ZM20 20h-2.5v-5.6c0-1.9-.7-2.5-1.8-2.5-1.2 0-1.9.9-1.9 2.5V20H11.3s.05-9.7 0-10.7H13.8v1.5c.5-.8 1.5-1.8 3.4-1.8 2.4 0 4.3 1.5 4.3 4.8V20Z" />
+    </svg>
+  );
+}
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -80,7 +109,7 @@ export function SiteFooter() {
                     className="focus-ring inline-flex size-[44px] items-center justify-center"
                     aria-label="Instagram"
                   >
-                    <FaInstagram className="size-[18px]" aria-hidden />
+                    <InstagramIcon />
                   </a>
                 ) : null}
                 {whatsapp ? (
@@ -102,7 +131,7 @@ export function SiteFooter() {
                     className="focus-ring inline-flex size-[44px] items-center justify-center"
                     aria-label="LinkedIn"
                   >
-                    <FaLinkedinIn className="size-[18px]" aria-hidden />
+                    <LinkedinIcon />
                   </a>
                 ) : null}
               </li>

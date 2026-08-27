@@ -24,6 +24,7 @@ export function LeadForm() {
       businessType: "",
       service: "",
       message: "",
+      website: "",
     },
   });
 
@@ -31,35 +32,44 @@ export function LeadForm() {
     setStatus("idle");
     trackEvent({ event: "form_submit", label: values.service });
 
-    const response = await fetch("/api/leads", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...values,
-        landingPage: window.location.pathname,
-        source: new URLSearchParams(window.location.search).get("utm_source") ?? undefined,
-        medium: new URLSearchParams(window.location.search).get("utm_medium") ?? undefined,
-        campaign: new URLSearchParams(window.location.search).get("utm_campaign") ?? undefined,
-      }),
-    });
+    try {
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...values,
+          landingPage: window.location.pathname,
+          source: new URLSearchParams(window.location.search).get("utm_source") ?? undefined,
+          medium: new URLSearchParams(window.location.search).get("utm_medium") ?? undefined,
+          campaign: new URLSearchParams(window.location.search).get("utm_campaign") ?? undefined,
+        }),
+      });
 
-    const payload = (await response.json()) as { message?: string };
+      const payload = (await response.json().catch(() => null)) as {
+        message?: string;
+      } | null;
 
-    if (!response.ok) {
+      if (!response.ok) {
+        setStatus("error");
+        setServerMessage(
+          payload?.message ??
+            "Não foi possível enviar agora. Tente de novo ou escreva para o e-mail da página.",
+        );
+        return;
+      }
+
+      trackEvent({ event: "lead", label: values.service });
+      setStatus("ok");
+      setServerMessage(
+        payload?.message ?? "Recebemos seu pedido. Retornamos em breve.",
+      );
+      form.reset();
+    } catch {
       setStatus("error");
       setServerMessage(
-        payload.message ??
-          "Não foi possível enviar agora. Tente de novo ou escreva para o e-mail da página.",
+        "Não foi possível enviar agora. Tente de novo ou escreva para o e-mail da página.",
       );
-      return;
     }
-
-    trackEvent({ event: "lead", label: values.service });
-    setStatus("ok");
-    setServerMessage(
-      payload.message ?? "Recebemos seu pedido. Retornamos em breve.",
-    );
-    form.reset();
   });
 
   const selectInvalid = Boolean(form.formState.errors.service);
@@ -147,6 +157,15 @@ export function LeadForm() {
       <label className="text-body-sm grid gap-[8px] font-medium">
         Mensagem (opcional)
         <Textarea {...form.register("message")} tone="dark" />
+      </label>
+
+      <label className="sr-only" aria-hidden="true">
+        Site
+        <input
+          {...form.register("website")}
+          tabIndex={-1}
+          autoComplete="off"
+        />
       </label>
 
       <Button

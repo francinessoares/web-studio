@@ -14,4 +14,4 @@ Profissionais (treino, nutrição, estética, saúde, consultoria) e pequenas em
 
 Editorial + premium (Manrope, lime pontual). Sensação: “Nova, mas sabe o que está fazendo.”
 
-DS: `docs/DESIGN_SYSTEM.md`. Headline: `src/data/headlines.ts`.
+DS: `docs/DESIGN_SYSTEM.md`. Headline no hero: “Seu negócio pronto para crescer no digital.”

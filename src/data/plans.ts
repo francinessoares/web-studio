@@ -2,8 +2,8 @@ export const plans = [
   {
     id: "presenca",
     name: "Presença digital",
-    summary: "Site, landing page e a estrutura para o negócio existir com clareza online.",
-    includes: ["Site profissional", "Landing page", "Base de presença digital"],
+    summary: "Site, página de captura e a estrutura para o negócio existir com clareza online.",
+    includes: ["Site profissional", "Página de captura", "Base de presença digital"],
   },
   {
     id: "crescimento",

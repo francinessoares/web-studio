@@ -26,4 +26,4 @@ Hero → Problema → Solução → Serviços → Como funciona → Primeiros pr
 
 ## Headline
 
-Escolhida: `src/data/headlines.ts` → “Seu negócio no digital. Do posicionamento à conversão.”
+Escolhida no hero: “Seu negócio pronto para crescer no digital.”

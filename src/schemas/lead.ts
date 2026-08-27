@@ -42,6 +42,7 @@ export const leadSchema = z.object({
   campaign: z.string().max(80).optional(),
   medium: z.string().max(80).optional(),
   landingPage: z.string().max(200).optional(),
+  website: z.string().max(200).optional(),
 });
 
 export type LeadInput = z.infer<typeof leadSchema>;

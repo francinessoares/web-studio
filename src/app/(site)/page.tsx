@@ -9,6 +9,7 @@ import { ProcessSection } from "@/sections/process";
 import { ProjectsSection } from "@/sections/projects";
 import { ServicesSection } from "@/sections/services";
 import { SolutionSection } from "@/sections/solution";
+import { WhyUsSection } from "@/sections/why-us";
 
 export default function Home() {
   return (
@@ -17,10 +18,11 @@ export default function Home() {
       <ProblemSection />
       <SolutionSection />
       <ServicesSection />
-      <ProjectsSection />
       <ProcessSection />
-      <PlansSection />
+      <ProjectsSection />
+      <WhyUsSection />
       <AboutSection />
+      <PlansSection />
       <FaqSection />
       <ContactSection />
       <FinalCtaSection />

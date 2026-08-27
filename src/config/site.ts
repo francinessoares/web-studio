@@ -2,8 +2,6 @@ export const siteConfig = {
   name: "Vortexa",
   role: "Presença digital e crescimento",
   instagramUrl: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "",
-  githubProfile:
-    process.env.NEXT_PUBLIC_GITHUB_URL ?? "https://github.com/francinessoares",
   linkedInProfile: process.env.NEXT_PUBLIC_LINKEDIN_URL?.trim() ?? "",
   email: process.env.NEXT_PUBLIC_EMAIL?.trim() ?? "",
   whatsappPhone: process.env.NEXT_PUBLIC_WHATSAPP_PHONE ?? "",
@@ -50,7 +48,7 @@ export const siteDescription =
   "A Vortexa une marketing digital, tráfego pago e tecnologia para o seu negócio crescer no digital. Atendimento em Florianópolis. Conversa sem compromisso.";
 
 export const siteKeywords =
-  "marketing digital Florianópolis, tráfego pago, criação de sites, landing page, gestão de redes sociais, automação, Vortexa";
+  "marketing digital Florianópolis, tráfego pago, criação de sites, páginas de captura, gestão de redes sociais, automação, Vortexa";
 
 export const ogImageAlt =
   "Vortexa — marketing digital, tráfego pago e sites em Florianópolis";

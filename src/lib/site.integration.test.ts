@@ -1,11 +1,16 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, beforeEach } from "vitest";
 
+import { POST } from "@/app/api/leads/route";
 import { getWhatsAppUrl, resolveSiteUrl } from "@/config/site";
 import {
   canonicalLocationHash,
   hrefToString,
   shouldHandleInPageHash,
 } from "@/lib/hash-navigation";
+import {
+  isHoneypotFilled,
+  resetRateLimit,
+} from "@/lib/rate-limit";
 import {
   buildFaqJsonLd,
   buildOrganizationJsonLd,
@@ -156,5 +161,79 @@ describe("hash navigation", () => {
   it("serializa href com hash", () => {
     expect(hrefToString("/#contato")).toBe("/#contato");
     expect(hrefToString({ pathname: "/", hash: "#faq" })).toBe("/#faq");
+  });
+});
+
+const validLead = {
+  name: "Maria Silva",
+  phone: "48999990000",
+  businessType: "clínica",
+  service: "sites" as const,
+};
+
+function leadRequest(body: unknown, ip = "203.0.113.10") {
+  return new Request("http://localhost/api/leads", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-forwarded-for": ip,
+    },
+    body: JSON.stringify(body),
+  });
+}
+
+describe("leads API", () => {
+  beforeEach(() => {
+    resetRateLimit();
+  });
+
+  it("ignora bot do campo isca sem enviar", async () => {
+    const response = await POST(
+      leadRequest({ ...validLead, website: "https://spam.test" }),
+    );
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toEqual(
+      expect.objectContaining({ message: expect.stringContaining("Recebemos") }),
+    );
+  });
+
+  it("rejeita payload inválido", async () => {
+    const response = await POST(leadRequest({ name: "A" }));
+    expect(response.status).toBe(400);
+  });
+
+  it("responde 503 quando o envio não está configurado", async () => {
+    const previousKey = process.env.RESEND_API_KEY;
+    const previousTo = process.env.CONTACT_TO_EMAIL;
+    delete process.env.RESEND_API_KEY;
+    delete process.env.CONTACT_TO_EMAIL;
+
+    const response = await POST(leadRequest(validLead));
+    expect(response.status).toBe(503);
+
+    if (previousKey === undefined) {
+      delete process.env.RESEND_API_KEY;
+    } else {
+      process.env.RESEND_API_KEY = previousKey;
+    }
+    if (previousTo === undefined) {
+      delete process.env.CONTACT_TO_EMAIL;
+    } else {
+      process.env.CONTACT_TO_EMAIL = previousTo;
+    }
+  });
+
+  it("limita tentativas repetidas do mesmo IP", async () => {
+    for (let index = 0; index < 5; index += 1) {
+      await POST(leadRequest(validLead, "198.51.100.8"));
+    }
+    const blocked = await POST(leadRequest(validLead, "198.51.100.8"));
+    expect(blocked.status).toBe(429);
+  });
+
+  it("marca honeypot só quando o campo isca tem texto", () => {
+    expect(isHoneypotFilled({ website: "http://x.com" })).toBe(true);
+    expect(isHoneypotFilled({ website: "  " })).toBe(false);
+    expect(isHoneypotFilled(validLead)).toBe(false);
   });
 });

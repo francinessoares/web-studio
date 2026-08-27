@@ -64,9 +64,9 @@ export const services: Service[] = [
   },
   {
     id: "landing",
-    name: "Landing Pages",
+    name: "Páginas de captura",
     description:
-      "Páginas focadas em campanhas, produtos e geração de leads.",
+      "Páginas focadas em campanhas, produtos e geração de contatos.",
     benefits: [
       "Uma oferta, uma ação",
       "Pronta para anúncio",

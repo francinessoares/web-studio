@@ -1,11 +1,31 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-import { leadSchema } from "@/schemas/lead";
 import { services } from "@/data/services";
+import {
+  consumeRateLimit,
+  getClientIp,
+  isHoneypotFilled,
+} from "@/lib/rate-limit";
+import { leadSchema } from "@/schemas/lead";
+
+const successMessage = "Recebemos seu pedido. Retornamos em breve.";
 
 export async function POST(request: Request) {
+  const ip = getClientIp(request);
+  if (consumeRateLimit(ip)) {
+    return NextResponse.json(
+      { message: "Muitas tentativas. Espere alguns minutos e tente de novo." },
+      { status: 429 },
+    );
+  }
+
   const json: unknown = await request.json().catch(() => null);
+
+  if (isHoneypotFilled(json)) {
+    return NextResponse.json({ message: successMessage });
+  }
+
   const parsed = leadSchema.safeParse(json);
 
   if (!parsed.success) {
@@ -57,7 +77,5 @@ export async function POST(request: Request) {
     );
   }
 
-  return NextResponse.json({
-    message: "Recebemos seu pedido. Retornamos em breve.",
-  });
+  return NextResponse.json({ message: successMessage });
 }
