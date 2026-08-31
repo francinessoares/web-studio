@@ -1,10 +1,13 @@
+export const DEFAULT_WHATSAPP_PHONE = "554891046034";
+
 export const siteConfig = {
   name: "Vortexa",
   role: "Presença digital e crescimento",
   instagramUrl: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "",
   linkedInProfile: process.env.NEXT_PUBLIC_LINKEDIN_URL?.trim() ?? "",
   email: process.env.NEXT_PUBLIC_EMAIL?.trim() ?? "",
-  whatsappPhone: process.env.NEXT_PUBLIC_WHATSAPP_PHONE ?? "",
+  whatsappPhone:
+    process.env.NEXT_PUBLIC_WHATSAPP_PHONE?.trim() || DEFAULT_WHATSAPP_PHONE,
   location: {
     city: "Florianópolis",
     region: "Santa Catarina",

@@ -10,7 +10,6 @@ import type { LucideIcon } from "lucide-react";
 
 import { SectionHeading } from "@/components/primitives/section-heading";
 import { SectionShell } from "@/components/primitives/section-shell";
-import { Link } from "@/components/ui/link";
 import { services, type ServiceId } from "@/data/services";
 
 const serviceIcons: Record<ServiceId, LucideIcon> = {
@@ -28,8 +27,8 @@ export function ServicesSection() {
       <SectionHeading
         align="center"
         eyebrow="Serviços"
-        title="O que fazemos, com clareza."
-        description="Cada frente tem um papel. Você pode começar por uma delas ou montar o conjunto."
+        title="O que fazemos."
+        description="Uma estratégia sob medida. Você começa por uma frente ou monta o conjunto."
         titleId="servicos-heading"
       />
       <ul className="mt-[48px] grid gap-[16px] sm:grid-cols-2 lg:grid-cols-3">
@@ -44,18 +43,9 @@ export function ServicesSection() {
               <h3 className="mt-[24px] text-[20px] leading-[1.2] font-bold tracking-[-0.5px]">
                 {service.name}
               </h3>
-              <p className="text-body-sm mt-[12px] flex-1 text-neutral-400">
+              <p className="text-body-sm mt-[12px] text-neutral-400">
                 {service.description}
               </p>
-              <p className="text-caption mt-[24px] text-neutral-400">Investimento</p>
-              <p className="mt-[4px] text-[18px] font-bold">Alinhamos na conversa</p>
-              <Link
-                href="/#contato"
-                tone="dark"
-                className="mt-[8px] min-h-[44px] text-[14px]"
-              >
-                {service.cta}
-              </Link>
             </li>
           );
         })}

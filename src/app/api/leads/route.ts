@@ -9,7 +9,7 @@ import {
 } from "@/lib/rate-limit";
 import { leadSchema } from "@/schemas/lead";
 
-const successMessage = "Recebemos seu pedido. Retornamos em breve.";
+const successMessage = "Recebemos sua mensagem. Retornamos em breve.";
 
 export async function POST(request: Request) {
   const ip = getClientIp(request);
@@ -48,7 +48,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         message:
-          "Não foi possível enviar agora. Tente de novo ou escreva para o e-mail de contato.",
+          "Não foi possível enviar agora. Tente de novo em instantes.",
       },
       { status: 503 },
     );

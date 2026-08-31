@@ -154,7 +154,7 @@ export function SiteFooter() {
               </ButtonLink>
             ) : (
               <ButtonLink href="/#contato" size="pill" className="mt-[20px]">
-                Quero crescer
+                Quero falar com um especialista
                 <ArrowUpRight className="size-[16px]" aria-hidden />
               </ButtonLink>
             )}

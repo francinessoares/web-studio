@@ -26,6 +26,12 @@ const team = [
   },
 ] as const;
 
+const highlights = [
+  "Marketing e engenharia no mesmo time",
+  "Estratégia e execução juntas",
+  "Soluções sob medida",
+] as const;
+
 export function AboutSection() {
   return (
     <SectionShell id="sobre" labelledBy="sobre-heading">
@@ -33,30 +39,44 @@ export function AboutSection() {
         <div className="lg:col-span-5">
           <SectionHeading
             eyebrow="Sobre"
-            title="Quem faz o trabalho."
-            description="Somos uma parceria em Florianópolis: marketing digital e engenharia de software no mesmo time, para o negócio crescer no digital."
+            title="Marketing encontra tecnologia."
+            description="A Vortexa une marketing digital e engenharia de software para construir soluções que fazem sentido para cada negócio."
             titleId="sobre-heading"
           />
+          <ul className="mt-[24px] grid gap-[10px]">
+            {highlights.map((item) => (
+              <li
+                key={item}
+                className="flex min-w-0 items-start gap-[10px] text-body-sm text-foreground"
+              >
+                <span
+                  className="mt-[7px] size-[6px] shrink-0 rounded-full bg-primary"
+                  aria-hidden
+                />
+                <span className="min-w-0">{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul className="grid gap-[16px] sm:grid-cols-2 lg:col-span-7">
+        <ul className="grid grid-cols-2 gap-[12px] sm:gap-[16px] lg:col-span-7">
           {team.map((person) => (
             <li
               key={person.id}
               className="overflow-hidden rounded-[16px] border border-border bg-surface"
             >
-              <div className="relative aspect-[4/5] bg-secondary">
+              <div className="relative aspect-[3/4] bg-secondary sm:aspect-[4/5]">
                 {person.photo ? (
                   <Image
                     src={person.photo.src}
                     alt={`${person.name}, ${person.role}`}
                     fill
                     className="object-cover object-top"
-                    sizes="(min-width: 1024px) 28vw, (min-width: 640px) 45vw, 100vw"
+                    sizes="(min-width: 1024px) 28vw, 45vw"
                   />
                 ) : null}
               </div>
-              <div className="p-[20px]">
-                <p className="text-[18px] font-semibold tracking-[-0.5px]">
+              <div className="p-[12px] sm:p-[20px]">
+                <p className="text-[15px] font-semibold tracking-[-0.5px] sm:text-[18px]">
                   {person.name}
                 </p>
                 <p className="text-body-sm mt-[6px] text-muted">{person.role}</p>

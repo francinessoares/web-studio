@@ -53,7 +53,7 @@ export function LeadForm() {
         setStatus("error");
         setServerMessage(
           payload?.message ??
-            "Não foi possível enviar agora. Tente de novo ou escreva para o e-mail da página.",
+            "Não foi possível enviar agora. Tente de novo em instantes.",
         );
         return;
       }
@@ -61,13 +61,13 @@ export function LeadForm() {
       trackEvent({ event: "lead", label: values.service });
       setStatus("ok");
       setServerMessage(
-        payload?.message ?? "Recebemos seu pedido. Retornamos em breve.",
+        payload?.message ?? "Recebemos sua mensagem. Retornamos em breve.",
       );
       form.reset();
     } catch {
       setStatus("error");
       setServerMessage(
-        "Não foi possível enviar agora. Tente de novo ou escreva para o e-mail da página.",
+        "Não foi possível enviar agora. Tente de novo em instantes.",
       );
     }
   });

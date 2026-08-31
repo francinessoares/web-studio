@@ -10,7 +10,7 @@ export function FaqSection() {
       <SectionHeading
         align="center"
         eyebrow="Perguntas"
-        title="Dúvidas que aparecem antes de contratar."
+        title="Antes da primeira conversa."
         titleId="faq-heading"
       />
       <div className="mx-auto mt-[40px] max-w-[800px] border-t border-border">

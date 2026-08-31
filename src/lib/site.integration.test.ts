@@ -76,9 +76,9 @@ describe("getWhatsAppUrl", () => {
     expect(getWhatsAppUrl("Olá", "")).toBeNull();
   });
 
-  it("monta o link do WhatsApp com DDI e mensagem", () => {
-    expect(getWhatsAppUrl("Quero criar meu site", "48 99999-0000")).toBe(
-      "https://wa.me/48999990000?text=Quero%20criar%20meu%20site",
+  it("inclui o DDI 55 no link comercial da Vortexa", () => {
+    expect(getWhatsAppUrl("Olá", "+55 48 9104-6034")).toBe(
+      "https://wa.me/554891046034?text=Ol%C3%A1",
     );
   });
 });
@@ -116,6 +116,7 @@ describe("json-ld", () => {
     const organization = buildOrganizationJsonLd();
 
     expect(organization.name).toBe("Vortexa");
+    expect(organization).not.toHaveProperty("email");
     expect(organization.address).toEqual(
       expect.objectContaining({
         addressLocality: "Florianópolis",
@@ -131,11 +132,11 @@ describe("json-ld", () => {
   it("expõe as perguntas reais do FAQ", () => {
     const faqPage = buildFaqJsonLd();
 
-    expect(faqPage.mainEntity).toHaveLength(8);
+    expect(faqPage.mainEntity).toHaveLength(5);
     expect(faqPage.mainEntity[0]).toEqual(
       expect.objectContaining({
         "@type": "Question",
-        name: "Quanto custa contratar?",
+        name: "Tenho pouco capital. Consigo começar?",
       }),
     );
   });

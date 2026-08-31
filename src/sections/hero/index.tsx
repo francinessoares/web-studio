@@ -41,12 +41,12 @@ export function Hero() {
     >
       <Container>
         <motion.div
-          className="grid items-center gap-[48px] pt-[64px] pb-[80px] lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)] lg:gap-[56px] lg:pt-[88px] lg:pb-[120px] lg:min-h-[calc(100svh-96px)]"
+          className="grid items-center gap-[28px] pt-[64px] pb-[80px] lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)] lg:grid-rows-[auto_auto] lg:gap-x-[56px] lg:gap-y-[40px] lg:pt-[88px] lg:pb-[120px] lg:min-h-[calc(100svh-96px)]"
           initial="hidden"
           animate="visible"
           variants={variants.container}
         >
-          <div>
+          <div className="order-1 min-w-0">
             <motion.p
               variants={variants.badge}
               className="font-eyebrow inline-flex items-center gap-[8px] text-foreground"
@@ -71,44 +71,12 @@ export function Hero() {
               transformar sua presença digital em oportunidades reais de
               negócio.
             </motion.p>
-            <motion.div
-              variants={variants.item}
-              className="mt-[40px] flex w-full max-w-[400px] flex-col gap-[12px]"
-            >
-              <ButtonLink
-                href="/#contato"
-                variant="primary"
-                className="w-full shrink-0 px-[16px] text-[14px] whitespace-nowrap sm:px-[24px] sm:text-[16px]"
-                onClick={() =>
-                  trackEvent({
-                    event: "cta_click",
-                    label: "hero_crescer",
-                    href: "/#contato",
-                  })
-                }
-              >
-                Quero fazer meu negócio crescer
-                <ArrowUpRight className="size-[16px] shrink-0" aria-hidden />
-              </ButtonLink>
-              <ButtonLink
-                href="/#servicos"
-                variant="secondary"
-                className="w-full shrink-0 px-[16px] text-[14px] whitespace-nowrap sm:px-[24px] sm:text-[16px]"
-                onClick={() =>
-                  trackEvent({
-                    event: "cta_click",
-                    label: "hero_servicos",
-                    href: "/#servicos",
-                  })
-                }
-              >
-                Conhecer nossos serviços
-                <ArrowRight className="size-[16px] shrink-0" aria-hidden />
-              </ButtonLink>
-            </motion.div>
           </div>
 
-          <motion.div variants={variants.item} className="min-w-0">
+          <motion.div
+            variants={variants.item}
+            className="order-2 min-w-0 lg:col-start-2 lg:row-span-2 lg:row-start-1"
+          >
             <Image
               src="/images/products.png"
               alt="Notebook e celular mostrando presença digital para negócios"
@@ -117,6 +85,42 @@ export function Hero() {
               priority
               className="mx-auto h-auto w-full max-w-[720px] object-contain lg:max-w-none"
             />
+          </motion.div>
+
+          <motion.div
+            variants={variants.item}
+            className="order-3 flex w-full max-w-[400px] flex-col gap-[12px] lg:col-start-1 lg:row-start-2"
+          >
+            <ButtonLink
+              href="/#contato"
+              variant="primary"
+              className="w-full shrink-0 px-[16px] text-[14px] whitespace-nowrap sm:px-[24px] sm:text-[16px]"
+              onClick={() =>
+                trackEvent({
+                  event: "cta_click",
+                  label: "hero_crescer",
+                  href: "/#contato",
+                })
+              }
+            >
+              Quero falar com um especialista
+              <ArrowUpRight className="size-[16px] shrink-0" aria-hidden />
+            </ButtonLink>
+            <ButtonLink
+              href="/#servicos"
+              variant="secondary"
+              className="w-full shrink-0 px-[16px] text-[14px] whitespace-nowrap sm:px-[24px] sm:text-[16px]"
+              onClick={() =>
+                trackEvent({
+                  event: "cta_click",
+                  label: "hero_servicos",
+                  href: "/#servicos",
+                })
+              }
+            >
+              Conhecer nossos serviços
+              <ArrowRight className="size-[16px] shrink-0" aria-hidden />
+            </ButtonLink>
           </motion.div>
         </motion.div>
       </Container>

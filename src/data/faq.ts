@@ -1,42 +1,27 @@
 export const faqs = [
   {
-    question: "Quanto custa contratar?",
+    question: "Tenho pouco capital. Consigo começar?",
     answer:
-      "Depende do que entra no projeto. Não temos uma tabela única no site de propósito: alinhamos o escopo na conversa e só então fechamos o investimento.",
+      "Sim. Podemos priorizar o que é mais importante para o momento do seu negócio e construir os próximos passos de forma gradual.",
   },
   {
-    question: "Vocês trabalham com negócios pequenos?",
+    question: "Preciso saber exatamente o que minha empresa precisa?",
     answer:
-      "Sim. Profissionais, clínicas, consultorias e pequenas empresas são o público inicial. O desenho parte do tamanho real da operação.",
+      "Não. A primeira conversa serve justamente para entender seu cenário, seus objetivos e identificar o que pode fazer mais sentido para o negócio.",
+  },
+  {
+    question: "Posso contratar apenas um serviço?",
+    answer:
+      "Sim. O escopo pode ser definido de acordo com a necessidade do seu negócio.",
   },
   {
     question: "Preciso já ter um site?",
     answer:
-      "Não. Dá para começar do zero ou aproveitar o que já existe, se estiver valendo a pena.",
+      "Não. Podemos construir sua presença digital desde o início ou trabalhar sobre o que você já possui.",
   },
   {
-    question: "Vocês cuidam dos anúncios?",
+    question: "Como funciona o primeiro contato?",
     answer:
-      "Sim, quando o plano inclui tráfego pago. Meta Ads e Google Ads entram com destino, oferta e acompanhamento — não como anúncio solto.",
-  },
-  {
-    question: "Vocês criam o conteúdo?",
-    answer:
-      "Sim, na gestão de redes e na estratégia. Volume e formato combinamos juntos, conforme o que o negócio aguenta manter.",
-  },
-  {
-    question: "Quanto tempo leva para colocar um site no ar?",
-    answer:
-      "Varia com o escopo e com o material que você já tem (textos, fotos, domínio). Na conversa inicial falamos um prazo honesto para o seu caso — sem prometer “em sete dias” para todo mundo.",
-  },
-  {
-    question: "Posso contratar apenas tráfego pago?",
-    answer:
-      "Pode. A gente olha se a página de destino aguenta o anúncio. Se não aguentar, falamos isso antes de gastar verba.",
-  },
-  {
-    question: "Posso contratar apenas o site?",
-    answer:
-      "Pode. O site já nasce pronto para gerar contato. Se depois fizer sentido somar marketing ou tráfego, o caminho está aberto.",
+      "Começamos com uma conversa para entender seu negócio, seus objetivos e os principais desafios. A partir disso, definimos os próximos passos.",
   },
 ] as const;

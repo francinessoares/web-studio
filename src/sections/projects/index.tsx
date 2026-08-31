@@ -8,6 +8,8 @@ import { SectionShell } from "@/components/primitives/section-shell";
 import { ButtonLink } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 
+const EVUFLOW_URL = "https://www.evuflow.com.br";
+
 export function ProjectsSection() {
   return (
     <SectionShell id="projetos" labelledBy="projetos-heading" tone="dark">
@@ -17,22 +19,24 @@ export function ProjectsSection() {
             tone="dark"
             eyebrow="Portfólio"
             title="O EvuFlow já está no ar."
-            description="Plataforma de inteligência corporal: da estratégia à interface. O portfólio cresce com os próximos projetos."
+            description="Plataforma de inteligência corporal desenvolvida pela Vortexa."
             titleId="projetos-heading"
           />
           <ButtonLink
-            href="/#contato"
+            href={EVUFLOW_URL}
             variant="dark-secondary"
             className="mt-[28px]"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() =>
               trackEvent({
                 event: "cta_click",
-                label: "projetos_conversar",
-                href: "/#contato",
+                label: "projetos_ver",
+                href: EVUFLOW_URL,
               })
             }
           >
-            Quero um projeto assim
+            Ver projeto
             <ArrowUpRight className="size-[16px]" aria-hidden />
           </ButtonLink>
         </div>

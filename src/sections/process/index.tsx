@@ -1,5 +1,4 @@
 import {
-  CircleCheck,
   MessageCircle,
   Monitor,
   Pencil,
@@ -15,7 +14,6 @@ const processIcons: LucideIcon[] = [
   MessageCircle,
   Pencil,
   Monitor,
-  CircleCheck,
   Rocket,
 ];
 
@@ -25,11 +23,10 @@ export function ProcessSection() {
       <SectionHeading
         align="center"
         eyebrow="Como funciona"
-        title="Um processo simples e transparente."
-        description="Não partimos de um pacote fechado. A jornada é a mesma; o conteúdo de cada etapa muda com o seu contexto."
+        title="Do diagnóstico à evolução."
         titleId="como-heading"
       />
-      <ol className="mt-[56px] grid gap-[32px] sm:grid-cols-2 lg:grid-cols-5 lg:gap-[16px]">
+      <ol className="mt-[56px] grid gap-[32px] sm:grid-cols-2 lg:grid-cols-4 lg:gap-[16px]">
         {processSteps.map((step, index) => {
           const Icon = processIcons[index] ?? MessageCircle;
           return (
